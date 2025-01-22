@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Brayan-22/artesanias-central-configuration.git
+          default-label: prod
+      profile: default
+  config:
+    activate:
+      on-profile: prod
+server:
+  port: ${PORT:9196}
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+  instance:
+    hostname: ${HOSTNAME:localhost}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
