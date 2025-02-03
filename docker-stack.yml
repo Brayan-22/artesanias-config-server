@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  artesanias-config-server:
+    user: root
+    image: brayan22/artesanias-config-server:latest
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+    - EUREKA_URI=http://artesanias-discovery-server:8761/eureka/
+    - HOSTNAME=artesanias-config-server
+    - PORT=9196
+    hostname: artesanias-config-server
+    networks:
+      - backend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+networks:
+  backend:
+    external: true
